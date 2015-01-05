@@ -116,11 +116,15 @@ class XBlock(XmlSerializationMixin, HierarchyMixin, ScopedStorageMixin, RuntimeS
         return dec
 
     @classmethod
-    def load_tagged_classes(cls, tag):
-        """Produce a sequence of all XBlock classes tagged with `tag`."""
+    def load_tagged_classes(cls, tag, fail_silently = True):
+        """Produce a sequence of all XBlock classes tagged with `tag`.
+
+        fail_silently causes the code to simply log warnings if a
+        plugin cannot import. I'm not sure why that's a good idea.
+        """
         # Allow this method to access the `_class_tags`
         # pylint: disable=W0212
-        for name, class_ in cls.load_classes():
+        for name, class_ in cls.load_classes( fail_silently ):
             if tag in class_._class_tags:
                 yield name, class_
 

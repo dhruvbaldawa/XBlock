@@ -120,11 +120,14 @@ class Plugin(object):
         return PLUGIN_CACHE[key]
 
     @classmethod
-    def load_classes(cls):
+    def load_classes(cls, fail_silently = True):
         """Load all the classes for a plugin.
 
         Produces a sequence containing the identifiers and their corresponding
         classes for all of the available instances of this plugin.
+
+        fail_silently causes the code to simply log warnings if a
+        plugin cannot import. I'm not sure why that's a good idea.
 
         """
         all_classes = itertools.chain(
@@ -135,7 +138,10 @@ class Plugin(object):
             try:
                 yield (class_.name, cls._load_class_entry_point(class_))
             except Exception:  # pylint: disable=broad-except
-                log.warning('Unable to load %s %r', cls.__name__, class_.name, exc_info=True)
+                if fail_silently:
+                    log.warning('Unable to load %s %r', cls.__name__, class_.name, exc_info=True)
+                else:
+                    raise
 
     @classmethod
     def register_temp_plugin(cls, class_, identifier=None, dist='xblock'):
