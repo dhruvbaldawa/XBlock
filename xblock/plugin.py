@@ -120,15 +120,20 @@ class Plugin(object):
         return PLUGIN_CACHE[key]
 
     @classmethod
-    def load_classes(cls, fail_silently = True):
+    def load_classes(cls, fail_silently=True):
         """Load all the classes for a plugin.
 
         Produces a sequence containing the identifiers and their corresponding
         classes for all of the available instances of this plugin.
 
         fail_silently causes the code to simply log warnings if a
-        plugin cannot import. I'm not sure why that's a good idea.
-
+        plugin cannot import. The goal is to be able to use part of
+        libraries from an XBlock (and thus have it installed), even if
+        the overall XBlock cannot be used (e.g. depends on Django in a
+        non-Django application. There is diagreement about whether
+        this is a good idea, or whether we should see failures early
+        (e.g. on startup or first page load), and in what
+        contexts. Hence, the flag.
         """
         all_classes = itertools.chain(
             pkg_resources.iter_entry_points(cls.entry_point),
