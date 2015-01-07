@@ -2,18 +2,22 @@
 XBlocks and JavaScript 
 #######################
 
-The following section describes how you
+The following section describes how you . . .
+
+See:
+
+* `JavaScript Runtimes`_
 
 *********************
 JavaScript Runtimes
 *********************
 
-The application that runs XBlocks uses JavaScript to load the XBlock.
-Specifically, the JavaScript code loads the XBLock's:
+The application that runs XBlocks uses a JavaScript runtime to load XBlocks.
+Specifically, the JavaScript runtime provides the following to XBlocks: 
 
-* Handler
-* Children 
-* Map of children
+* The XBlock Handler
+* XBlock Children 
+* A map of the XBlock children
   
 Following is an example JavaScript runtime from the `XBlock SDK`_.
 
