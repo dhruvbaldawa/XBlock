@@ -7,6 +7,7 @@ The following section describes how you . . .
 See:
 
 * `JavaScript Runtimes`_
+* `Using JavaScript in Your XBlock`_
 
 *********************
 JavaScript Runtimes
